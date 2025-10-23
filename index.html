@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>App Auto Redirect</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background: #f4f6f8;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    h2 { color: #222; }
+    img { margin: 20px 0; width: 220px; height: 220px; }
+    p { color: #555; font-size: 14px; }
+    a { color: #007bff; text-decoration: none; margin: 0 5px; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <h2>Scan to Download Our App</h2>
+  <img id="qr" alt="QR Code" />
+  <p>If it doesn’t open automatically, tap the correct store link below.</p>
+  <a id="android-link" href="#" target="_blank">Open in Google Play</a> |
+  <a id="ios-link" href="#" target="_blank">Open in App Store</a>
+
+  <script>
+    // === Store URLs ===
+    const ANDROID_URL = "https://play.google.com/store/apps/details?id=com.mubadala.ecn&pcampaignid=web_share";
+    const IOS_URL = "https://apps.apple.com/in/app/ethics-compliance-network/id6753754276";
+
+    // === Detect Device OS ===
+    // function detectOS() {
+    //   const ua = navigator.userAgent.toLowerCase();
+    //   if (ua.includes("android")) return "android";
+    //   if (ua.includes("iphone") || ua.includes("ipad") || ua.includes("ipod")) return "ios";
+    //   return "other";
+    // }
+
+    // // === Assign Manual Links (for desktop users or blocked redirects) ===
+    // document.getElementById("android-link").href = ANDROID_URL;
+    // document.getElementById("ios-link").href = IOS_URL;
+
+    // // === Generate Dynamic QR that points to THIS same redirect page ===
+    // // This ensures one QR works for both platforms
+    // const thisPageUrl = window.location.origin + window.location.pathname;
+    // const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(thisPageUrl)}`;
+    // document.getElementById("qr").src = qrUrl;
+
+    // // === Instant Auto-Redirect (no delay, no blink) ===
+    // const os = detectOS();
+    // if (os === "android") {
+    //   window.location.replace(ANDROID_URL);
+    // } else if (os === "ios") {
+    //   window.location.replace(IOS_URL);
+    // }
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+  if (/android/i.test(userAgent)) {
+    // window.location.href = "https://play.google.com/store/apps/details?id=com.mubadala.ecn";
+  } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+    // window.location.href = "https://apps.apple.com/us/app/ethics-compliance-network/id6753754276";
+  } else {
+    // fallback for desktop users
+    // window.location.href = "https://mecn.ersuae.com/";
+  }
+  </script>
+</body>
+</html>
